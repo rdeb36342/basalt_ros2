@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
   const auto frontEnd =
     std::make_shared<basalt_ros2::VIOFrontEnd>(
       frontEndNode, calib, vioConfig);
-  std::vector<std::string> imu_topics = {"gyro", "accel"};
+  std::vector<std::string> imu_topics = {"imu_topics"};
 #ifdef SHORT_WIRE_BACK_AND_FRONT_END
   // link front end to backend, by-passing the ROS messaging
   basalt_ros2::VIOBackEnd::OpticalFlowResultQueue **q =
