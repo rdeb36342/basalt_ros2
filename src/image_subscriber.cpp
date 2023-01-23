@@ -30,9 +30,10 @@ ImageSubscriber::ImageSubscriber(const std::shared_ptr<rclcpp::Node>& node,
   subs_.push_back(std::make_shared<message_filters::Subscriber<Image>>(
       // node.get(), topic_right, profile));
       node.get(), topic_right));
-  sync_ = std::make_shared<message_filters::TimeSynchronizer<Image, Image>>(
-      *subs_[0], *subs_[1], 100);
-  sync_->registerCallback(std::bind(&ImageSubscriber::callback, this, _1, _2));
+  approxsync_ = std::make_shared<message_filters::Synchronizer<approxsyncpol>>(
+      approxsyncpol(100u),
+      *subs_[0], *subs_[1]);
+  approxsync_->registerCallback(std::bind(&ImageSubscriber::callback, this, _1, _2));  
   lastTime_ = node_->now();
 }
 

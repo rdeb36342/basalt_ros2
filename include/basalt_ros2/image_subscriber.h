@@ -5,6 +5,9 @@
 #pragma once
 #include <message_filters/subscriber.h>
 #include <message_filters/time_synchronizer.h>
+#include <message_filters/synchronizer.h>
+#include <message_filters/sync_policies/approximate_time.h>
+
 
 #include <basalt/optical_flow/optical_flow.h>
 
@@ -39,7 +42,9 @@ class ImageSubscriber {
   void callback(const ImageConstPtr& left, const ImageConstPtr& right);
   // ----- variables --
   std::shared_ptr<rclcpp::Node> node_;
-  std::shared_ptr<message_filters::TimeSynchronizer<Image, Image>> sync_;
+  // std::shared_ptr<message_filters::TimeSynchronizer<Image, Image>> sync_;
+  typedef message_filters::sync_policies::ApproximateTime<Image, Image> approxsyncpol;
+  std::shared_ptr<message_filters::Synchronizer<approxsyncpol>> approxsync_;
   std::vector<std::shared_ptr<message_filters::Subscriber<Image>>> subs_;
   OpticalFlowInputQueue* queue_{nullptr};
   long int max_q_{0};
