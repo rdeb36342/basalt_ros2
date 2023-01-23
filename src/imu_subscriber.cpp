@@ -110,16 +110,16 @@ void IMUSubscriber::callback_accel(const ImuMsgConstPtr accel) {
 }
 
 void IMUSubscriber::printFrameRate() {
-  if (++combinedFramesReceived_ == 1000) {
-    const auto t = node_->now();
-    const auto dt = t - lastTime_;
-    RCLCPP_INFO_STREAM(node_->get_logger(),
-                       "received combined IMU frame rate: "
-                           << combinedFramesReceived_ * 1e9 / dt.nanoseconds());
+  // if (++combinedFramesReceived_ == 1000) {
+  //   const auto t = node_->now();
+  //   const auto dt = t - lastTime_;
+  //   RCLCPP_INFO_STREAM(node_->get_logger(),
+  //                      "received combined IMU frame rate: "
+  //                          << combinedFramesReceived_ * 1e9 / dt.nanoseconds());
 
-    lastTime_ = node_->now();
-    combinedFramesReceived_ = 0;
-  }
+  //   lastTime_ = node_->now();
+  //   combinedFramesReceived_ = 0;
+  // }
 }
 
 void IMUSubscriber::callback_combined(const ImuMsgConstPtr msg) {
